@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public List<Boid> boids = new List<Boid>();
     public int width, height; //anchura y altura
 
+    [Range(0,4f)]
+    public float weightSeparation, weightAlignment, weightCohesion; //El peso que va a tener cada metodo. Cual quiero que sea mas prioritario
+
     private void Awake()
     {
         Instance = this;

@@ -464,6 +464,9 @@ MonoBehaviour:
   boids: []
   width: 25
   height: 25
+  weightSeparation: 1.5
+  weightAlignment: 1.3
+  weightCohesion: 1
 --- !u!4 &421674584
 Transform:
   m_ObjectHideFlags: 0
