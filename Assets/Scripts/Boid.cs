@@ -84,7 +84,7 @@ public class Boid : MonoBehaviour
 
     Vector3 Cohesion(List<Boid> boids, float radius) //Acercarme a la manada
     {
-        var desired = transform.position;
+        var desired = transform.position; //Mi posicion
         var count = 0;
 
         foreach (var item in boids)
