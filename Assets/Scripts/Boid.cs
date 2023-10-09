@@ -21,7 +21,9 @@ public class Boid : MonoBehaviour
 
     void Update()
     {
-        Flocking();
+        //Huir del cazador
+        //Ir a la manzana
+        Flocking(); //Flocking
 
         transform.position = GameManager.Instance.ApplyBounds(transform.position + _velocity * Time.deltaTime);
         transform.forward = _velocity; //Que mire para donde se esta moviendo
@@ -29,9 +31,9 @@ public class Boid : MonoBehaviour
 
     void Flocking()
     {
-        AddForce(Separation(GameManager.Instance.boids ,separationRadius));
-        AddForce(Alignment(GameManager.Instance.boids, viewRadius));
-        AddForce(Cohesion(GameManager.Instance.boids, viewRadius));
+        AddForce(Separation(GameManager.Instance.boids ,separationRadius) * GameManager.Instance.weightSeparation);
+        AddForce(Alignment(GameManager.Instance.boids, viewRadius) * GameManager.Instance.weightAlignment);
+        AddForce(Cohesion(GameManager.Instance.boids, viewRadius) * GameManager.Instance.weightCohesion);
     }
 
     Vector3 Separation(List<Boid> boids, float radius)
