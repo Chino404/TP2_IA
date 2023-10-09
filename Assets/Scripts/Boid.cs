@@ -31,7 +31,7 @@ public class Boid : MonoBehaviour
     {
         AddForce(Separation(GameManager.Instance.boids ,separationRadius));
         AddForce(Alignment(GameManager.Instance.boids, viewRadius));
-        //AddForce(Cohesion());
+        AddForce(Cohesion(GameManager.Instance.boids, viewRadius));
     }
 
     Vector3 Separation(List<Boid> boids, float radius)
@@ -56,11 +56,6 @@ public class Boid : MonoBehaviour
         return CalculateSteering(desired);
     }
 
-    //Vector3 Cohesion()
-    //{
-
-    //}
-
     Vector3 Alignment(List<Boid> boids, float radius)
     {
         var desired = Vector3.zero;
@@ -80,6 +75,32 @@ public class Boid : MonoBehaviour
         if(count <= 0) return Vector3.zero; //Porque no hay nadie dentro de mi radio
 
         desired /= count; //Promedio de donde estan mirando todos los que estan adentro de mi radio
+
+        desired.Normalize();
+        desired *= maxSpeed;
+
+        return CalculateSteering(desired);
+    }
+
+    Vector3 Cohesion(List<Boid> boids, float radius) //Acercarme a la manada
+    {
+        var desired = transform.position; //Mi posicion
+        var count = 0;
+
+        foreach (var item in boids)
+        {
+            var dist = Vector3.Distance(transform.position, item.transform.position);
+
+            if (dist > radius || item == this) //Si esta afuera de mi radio o soy yo, paso al siguiente
+                continue;
+
+            desired += item.transform.position;
+            count++;
+        }
+
+        if(count <= 0) return Vector3.zero;
+
+        desired /= count;
 
         desired.Normalize();
         desired *= maxSpeed;
