@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Hunter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Transform target;
+    Vector3 _velocity;
+    public float maxVelocity;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        AddForce(transform.forward);
+
+        transform.position += _velocity * Time.deltaTime;
+    }
+
+
+    public void AddForce(Vector3 dir)
+    {
+        _velocity += dir;
+
+        _velocity = Vector3.ClampMagnitude(_velocity, maxVelocity);
     }
 }
