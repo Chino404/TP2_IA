@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class Hunter : MonoBehaviour
 {
-    public Transform target;
-    Vector3 _velocity;
+    FSM _fsm;
+    public Hunter hunter;
     public float maxVelocity;
+    public float maxForce;
 
-    void Update()
+    public Transform[] wayPoints;
+    private void Start()
     {
-        AddForce(transform.forward);
+        _fsm = new FSM();
 
-        transform.position += _velocity * Time.deltaTime;
+        _fsm.CreateState("Idle", new Idle(_fsm));
+        _fsm.CreateState("Patrol", new Patrol(_fsm, wayPoints, hunter));
+        _fsm.ChangeState("Idle");
     }
-
-
-    public void AddForce(Vector3 dir)
+    private void Update()
     {
-        _velocity += dir;
-
-        _velocity = Vector3.ClampMagnitude(_velocity, maxVelocity);
+        _fsm.Execute();
     }
 }
