@@ -9,7 +9,7 @@ public class Boid : MonoBehaviour
     public float separationRadius;
     [Header("Velocidades")]
     public float maxSpeed;
-    public float maxForce; //La fuerza con la cual va a girar
+    public float maxForce; //La fuerza con la cual va a girar (El margen de giro)
     Vector3 _velocity; //Para donde miro
 
     void Start()
@@ -22,13 +22,26 @@ public class Boid : MonoBehaviour
     void Update()
     {
         //Huir del cazador
+        if (Vector3.Distance(GameManager.Instance.hunter.transform.position, transform.position) <= viewRadius)
+        {
+            AddForce(Evade(GameManager.Instance.hunter.transform.position + GameManager.Instance.hunter.velocity));
+        }
+
         //Ir a la manzana
-        Flocking(); //Flocking
+        //else if()
+        //{
+
+        //}
+
+        //Flocking
+        else
+            Flocking();
 
         transform.position = GameManager.Instance.ApplyBounds(transform.position + _velocity * Time.deltaTime);
         transform.forward = _velocity; //Que mire para donde se esta moviendo
     }
 
+    #region FLOCKING
     void Flocking()
     {
         AddForce(Separation(GameManager.Instance.boids ,separationRadius) * GameManager.Instance.weightSeparation);
@@ -109,14 +122,34 @@ public class Boid : MonoBehaviour
 
         return CalculateSteering(desired);
     }
+    #endregion
 
     //Calculo la fuerza con la que va a girar su direccion
     Vector3 CalculateSteering(Vector3 desired)
     {
-        var steering = desired - _velocity;
+        var steering = desired - _velocity; //direccion = la dir. deseada - hacia donde me estoy moviendo
         steering = Vector3.ClampMagnitude(steering, maxForce);
 
         return steering;
+    }
+
+    Vector3 Evade(Vector3 target)
+    {
+        return Flee(target);
+    }
+
+    Vector3 Flee(Vector3 targetFlee)
+    {
+        return -Seek(targetFlee); //Es negativo para que huya
+    }
+
+    Vector3 Seek(Vector3 targetSeek)
+    {
+        var desired = targetSeek - transform.position; //Me va a dar un valor
+        desired.Normalize(); //Lo normalizo para que sea mas comodo
+        desired *= maxSpeed; //Lo multiplico por la velocidad
+
+        return CalculateSteering(desired);
     }
 
     public void AddForce(Vector3 dir)

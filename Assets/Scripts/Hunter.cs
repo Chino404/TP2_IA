@@ -6,6 +6,9 @@ public class Hunter : MonoBehaviour
 {
     FSM _fsm;
     public Hunter hunter;
+
+    public Vector3 velocity; //Lo hice publico para que pueda modificarlo en el Patrol y poder pedirlo en el Boid
+
     public float maxVelocity;
     public float maxForce;
 
