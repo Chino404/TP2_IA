@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public Hunter hunter;
     public List<Boid> boids = new List<Boid>();
     public int width, height; //anchura y altura
 
@@ -22,9 +23,9 @@ public class GameManager : MonoBehaviour
     {
         //Me teletransporta al otro lado, el opuesto
         if (pos.x > width) pos.x = -width;
-        if(pos.x <  -width) pos.x = width;
-        if(pos.z > height) pos.z = -height;
-        if(pos.z < -height) pos.z = height;
+        if (pos.x <  -width) pos.x = width;
+        if (pos.z > height) pos.z = -height;
+        if (pos.z < -height) pos.z = height;
 
         return pos;
     }
