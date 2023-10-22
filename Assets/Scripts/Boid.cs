@@ -11,6 +11,7 @@ public class Boid : MonoBehaviour
     public float maxSpeed;
     public float maxForce; //La fuerza con la cual va a girar (El margen de giro)
     Vector3 _velocity; //Para donde miro
+    public Vector3 Velocity { get { return _velocity; } }
 
     void Start()
     {
