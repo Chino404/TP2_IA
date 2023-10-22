@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Patrol :  IState
 {
-    float _counter;
     FSM _fsm;
-    Transform[] _wayPoints;
     Hunter _hunter;
-    Chase _chase;
-
-    //Vector3 _velocity;
+    Transform[] _wayPoints;
+    float _counter;
     
     int _actualIndex;
 
@@ -19,30 +16,11 @@ public class Patrol :  IState
         _fsm = fsm;
         _wayPoints = waypoints;
         _hunter = hunter;
-    }
-
-    //void Update()
-    //{
-       
-    //    AddForce(Seek(_wayPoints[_actualIndex].position));
-
-    //    if (Vector3.Distance(_hunter.transform.position, _wayPoints[_actualIndex].position) <= 0.3f)
-    //    {
-    //        _actualIndex++;
-    //        if (_actualIndex >= _wayPoints.Length)
-    //            _actualIndex = 0;
-    //    }
-
-
-    //    _hunter.transform.position += _velocity * Time.deltaTime;
-    //    _hunter.transform.forward = _velocity;
-    //}
-
-    
+    } 
 
     public void OnEnter()
     {
-        _counter = 10;
+        _counter = _hunter.counter;
         Debug.Log("enter patrol");
     }
 
@@ -61,11 +39,15 @@ public class Patrol :  IState
         _hunter.gameObject.transform.position += _hunter.velocity * Time.deltaTime;
         _hunter.gameObject.transform.forward = _hunter.velocity;
         _counter -= Time.deltaTime;
+
         if (_counter <= 0)
             _fsm.ChangeState("Idle");
-        if (Vector3.Distance(_hunter.gameObject.transform.position, _chase.currentTarget.transform.position) < Vector3.Distance(_hunter.gameObject.transform.position, _wayPoints[_actualIndex].position))
-            _fsm.ChangeState("Chase");
-        Debug.Log("estoy en patrol, contando" + _counter);
+
+        foreach (var item in GameManager.Instance.boids)
+        {
+            if (Vector3.Distance(item.transform.position , _hunter.transform.position) <= _hunter.viewRadius)
+                _fsm.ChangeState("Chase");
+        }
 
     }
 
@@ -74,6 +56,7 @@ public class Patrol :  IState
         Debug.Log("exit patrol");
 
     }
+
     Vector3 Seek(Vector3 target)
     {
         var desired = target - _hunter.gameObject.transform.position;
@@ -85,8 +68,6 @@ public class Patrol :  IState
 
         return steering;
     }
-
-
 
     public void AddForce(Vector3 dir)
     {

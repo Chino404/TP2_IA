@@ -11,10 +11,6 @@ public class Chase : IState
     float _closestDistance = Mathf.Infinity;
     public Boid currentTarget;
     Hunter _hunter;
-    //Boid closestTarget = null;
-
-
-    int _actualIndex;
 
     public Chase (FSM fsm, Boid[] target, Hunter hunter)
     {
@@ -23,35 +19,18 @@ public class Chase : IState
         _hunter = hunter;
     }
 
-    //private Boid FindClosestTarget()
-    //{
-     //Transform closestTarget=null
-    //    float closestDistance = Mathf.Infinity;
-
-    //    foreach (Boid target in _target)
-    //    {
-    //        float distance = Vector3.Distance(_hunter.gameObject.transform.position, target.transform.position);
-    //        if (distance < closestDistance)
-    //        {
-    //            closestDistance = distance;
-    //            closestTarget = target;
-    //        }
-    //    }
-
-    //    return closestTarget;
-    //}
     public void OnEnter()
     {
-        _counter = 15;
+        _counter = _hunter.counter;
         Debug.Log("enter chase");
     }
 
     public void OnUpdate()
     {
-        //_currentTarget = closestTarget;
         foreach (Boid target in _target)
         {
             float _distance = Vector3.Distance(_hunter.gameObject.transform.position, target.transform.position);
+
             if(_distance<_closestDistance)
             {
                 _closestDistance = _distance;
@@ -63,13 +42,14 @@ public class Chase : IState
         _hunter.gameObject.transform.position += _hunter.velocity * Time.deltaTime;
         _hunter.gameObject.transform.forward = _hunter.velocity;
         _counter -= Time.deltaTime;
+
         if(_counter<=0)
         {
             _fsm.ChangeState("Idle");
         }
-        if (Vector3.Distance(_hunter.gameObject.transform.position, currentTarget.transform.position) < 10)
+
+        else if (Vector3.Distance(_hunter.gameObject.transform.position, currentTarget.transform.position) < 10)
             _fsm.ChangeState("Patrol");
-        Debug.Log("estoy en chase, contando" + _counter);
 
     }
 

@@ -428,7 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec45f72ff8ff48409fa760c3195d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 5
   separationRadius: 2
   maxSpeed: 5
   maxForce: 0.01
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec45f72ff8ff48409fa760c3195d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 5
   separationRadius: 2
   maxSpeed: 5
   maxForce: 0.01
@@ -945,8 +945,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hunter: {fileID: 1105172818}
   velocity: {x: 0, y: 0, z: 0}
+  viewRadius: 10
   maxVelocity: 5
   maxForce: 0.01
+  counterIdle: 2
+  counter: 3
   wayPoints:
   - {fileID: 1453651272}
   - {fileID: 1509723504}
@@ -1035,7 +1038,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105172817}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.09, y: 1.1628544, z: -2.11}
+  m_LocalPosition: {x: -7.64, y: 1.1628544, z: -2.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1087,7 +1090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec45f72ff8ff48409fa760c3195d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 5
   separationRadius: 2
   maxSpeed: 5
   maxForce: 0.01
@@ -1202,7 +1205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec45f72ff8ff48409fa760c3195d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 5
   separationRadius: 2
   maxSpeed: 5
   maxForce: 0.01
@@ -1573,7 +1576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec45f72ff8ff48409fa760c3195d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 5
   separationRadius: 2
   maxSpeed: 5
   maxForce: 0.01
@@ -1688,7 +1691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec45f72ff8ff48409fa760c3195d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 5
   separationRadius: 2
   maxSpeed: 5
   maxForce: 0.01
@@ -1900,7 +1903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec45f72ff8ff48409fa760c3195d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 5
   separationRadius: 2
   maxSpeed: 5
   maxForce: 0.01
@@ -2174,7 +2177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec45f72ff8ff48409fa760c3195d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 5
   separationRadius: 2
   maxSpeed: 5
   maxForce: 0.01
@@ -2289,7 +2292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec45f72ff8ff48409fa760c3195d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 5
   separationRadius: 2
   maxSpeed: 5
   maxForce: 0.01
@@ -2404,7 +2407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec45f72ff8ff48409fa760c3195d05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 10
+  viewRadius: 5
   separationRadius: 2
   maxSpeed: 5
   maxForce: 0.01

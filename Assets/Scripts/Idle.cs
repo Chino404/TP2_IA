@@ -6,18 +6,22 @@ public class Idle : IState
 {
     float _counter;
     FSM _fsm;
-    public Idle(FSM fsm)
+    Hunter _hunter;
+
+    public Idle(Hunter hunter,FSM fsm)
     {
+        _hunter = hunter;
         _fsm = fsm;
     }
+
     public void OnEnter()
     {
-        _counter = 3;
+        _counter = _hunter.counterIdle;
         Debug.Log("enter idle");
     }
+
     public void OnUpdate()
     {
-        Debug.Log("estoy en idle, contando" + _counter);
         _counter -= Time.deltaTime;
         if(_counter<=0)
         {
@@ -31,6 +35,4 @@ public class Idle : IState
         Debug.Log("exit idle");
 
     }
-
-
 }
