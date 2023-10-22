@@ -952,6 +952,17 @@ MonoBehaviour:
   - {fileID: 1509723504}
   - {fileID: 1715730126}
   - {fileID: 1698585177}
+  target:
+  - {fileID: 369966058}
+  - {fileID: 1574795477}
+  - {fileID: 1241152129}
+  - {fileID: 1113037924}
+  - {fileID: 516645428}
+  - {fileID: 1827297319}
+  - {fileID: 1805829682}
+  - {fileID: 1799056116}
+  - {fileID: 1609047773}
+  - {fileID: 1584261973}
 --- !u!136 &1105172819
 CapsuleCollider:
   m_ObjectHideFlags: 0

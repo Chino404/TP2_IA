@@ -8,6 +8,7 @@ public class Patrol :  IState
     FSM _fsm;
     Transform[] _wayPoints;
     Hunter _hunter;
+    Chase _chase;
 
     //Vector3 _velocity;
     
@@ -62,7 +63,8 @@ public class Patrol :  IState
         _counter -= Time.deltaTime;
         if (_counter <= 0)
             _fsm.ChangeState("Idle");
-
+        if (Vector3.Distance(_hunter.gameObject.transform.position, _chase.currentTarget.transform.position) < Vector3.Distance(_hunter.gameObject.transform.position, _wayPoints[_actualIndex].position))
+            _fsm.ChangeState("Chase");
         Debug.Log("estoy en patrol, contando" + _counter);
 
     }

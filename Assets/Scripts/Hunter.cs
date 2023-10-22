@@ -13,13 +13,15 @@ public class Hunter : MonoBehaviour
     public float maxForce;
 
     public Transform[] wayPoints;
+    public Boid[] target;
     private void Start()
     {
         _fsm = new FSM();
 
         _fsm.CreateState("Idle", new Idle(_fsm));
         _fsm.CreateState("Patrol", new Patrol(_fsm, wayPoints, hunter));
-        _fsm.ChangeState("Idle");
+        _fsm.CreateState("Chase", new Chase(_fsm, target, hunter));
+        _fsm.ChangeState("Chase");
     }
     private void Update()
     {
