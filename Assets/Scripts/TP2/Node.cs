@@ -5,6 +5,7 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     List<Node> _neighbors = new List<Node>();
+    public bool blocked = default;
 
     Grid _grid; //Para poder llamar a sus metodo "GetNode"
     int _x, _y; //Para que cada nodo sepa su posicion para dsp sumarle o restarle y conocer sus vecinos
@@ -17,6 +18,10 @@ public class Node : MonoBehaviour
         _y = y;
     }
 
+    /// <summary>
+    /// ME DA LA LISTA DE SUS VECINOS
+    /// </summary>
+    /// <returns></returns>
     public List<Node> GetNeighbors()
     {
         if(_neighbors.Count > 0) //Si ya tengo un nodo(vecino) en mi lista, la devuelvo, porque quiere decir que ya hice este paso
@@ -46,5 +51,25 @@ public class Node : MonoBehaviour
             _neighbors.Add(current);
 
         return _neighbors; //Devuelvo la lista
+    }
+
+    private void OnMouseOver() //Se ejecuta este metodo cuando detecte el mouse, cuando lo pase por arriba
+    {
+        if(Input.GetMouseButtonDown(0)) //Click Izquierdo
+        {
+            GameManager.Instance.SetStartingNode(this);
+        }
+
+        if(Input.GetMouseButtonDown(1)) //Click Derecho
+        {
+            GameManager.Instance.SetGoalNode(this);
+        }
+
+        if (Input.GetMouseButtonDown(2)) //Click Rueda
+        {
+            blocked = !blocked;
+                                                    //Si esta bloqueado    sino
+            GetComponent<Renderer>().material.color = blocked ? Color.gray : Color.white; //Bloqueo
+        }
     }
 }

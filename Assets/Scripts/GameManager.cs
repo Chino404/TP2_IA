@@ -6,17 +6,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    #region TP1 
+    [Header ("TP1")]
     public Hunter hunter;
     public List<Boid> boids = new List<Boid>();
     public int width, height; //anchura y altura
 
     [Range(0,4f)]
     public float weightSeparation, weightAlignment, weightCohesion; //El peso que va a tener cada metodo. Cual quiero que sea mas prioritario
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     //Aplicar Limites
     public Vector3 ApplyBounds(Vector3 pos) 
@@ -47,4 +50,49 @@ public class GameManager : MonoBehaviour
         Gizmos.DrawLine(downRight, downLeft);
         Gizmos.DrawLine(downLeft, topLeft);
     }
+    #endregion
+
+    #region TP2
+    [Header("TP 2")]
+    public Player player;
+
+    Node _startingNode;
+    Node _goalNode;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && _startingNode != null && _goalNode != null)
+        {
+            player.path = Pathfinding.instance.CalculateBFS(_startingNode, _goalNode);
+        }
+    }
+
+    /// <summary>
+    /// Setear el nodo donde se empieza
+    /// </summary>
+    /// <param name="node"></param>
+    public void SetStartingNode(Node node)
+    {
+        if (_startingNode != null) //Si ya tenia un nodo guardado
+            _startingNode.GetComponent<Renderer>().material.color = Color.white; //Lo cambio a blanco
+
+        _startingNode = node;
+        node.GetComponent<Renderer>().material.color = Color.red; //Inicio
+        player.transform.position = _startingNode.transform.position;
+    }
+
+    /// <summary>
+    /// Seteo el nodo de la meta
+    /// </summary>
+    /// <param name="node"></param>
+    public void SetGoalNode(Node node)
+    {
+        if (_goalNode != null) //Si ya tenia un nodo guardado
+            _goalNode.GetComponent<Renderer>().material.color = Color.white; //Lo cambio a blanco
+
+        _goalNode = node;
+        node.GetComponent<Renderer>().material.color = Color.green; //Inicio
+    }
+
+    #endregion
 }
