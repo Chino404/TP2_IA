@@ -36,7 +36,7 @@ public class Grid : MonoBehaviour
     }
 
     /// <summary>
-    /// Metodo que sirve para que el nodo me llame y pueda conocer a sus vecinos
+    /// Metodo que sirve para que el nodo llame y pueda conocer a sus vecinos
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>

@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; //Dijkstra
 
 public class Node : MonoBehaviour
 {
     List<Node> _neighbors = new List<Node>();
     public bool blocked = default;
+    #region Dijkstra
+    public TextMeshProUGUI textCost; //Para ver los costos
+    public int cost;
+    #endregion
 
     Grid _grid; //Para poder llamar a sus metodo "GetNode"
     int _x, _y; //Para que cada nodo sepa su posicion para dsp sumarle o restarle y conocer sus vecinos
@@ -16,6 +21,8 @@ public class Node : MonoBehaviour
         _grid = grid;
         _x = x;
         _y = y;
+
+        SetCost(1);//Dijkstra
     }
 
     /// <summary>
@@ -71,5 +78,20 @@ public class Node : MonoBehaviour
                                                     //Si esta bloqueado    sino
             GetComponent<Renderer>().material.color = blocked ? Color.gray : Color.white; //Bloqueo
         }
+
+        #region Dijkstra
+        var c = (int)Input.GetAxisRaw("Vertical"); 
+
+        SetCost(c);
+        #endregion
     }
+
+    #region Dijkstra
+    public void SetCost(int vnewCost)
+    {
+        cost += vnewCost;
+        cost = Mathf.Clamp(cost, 0, 99);
+        textCost.text = "" + cost;
+    }
+    #endregion
 }
