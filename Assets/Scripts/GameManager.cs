@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     #region TP2
     [Header("TP 2")]
     public Player player;
+    public bool BFS, Dijkstra, visualization;
 
     Node _startingNode;
     Node _goalNode;
@@ -63,7 +64,22 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && _startingNode != null && _goalNode != null)
         {
-            player.path = Pathfinding.instance.CalculateBFS(_startingNode, _goalNode);
+            if(BFS && !Dijkstra)
+            {
+                if(!visualization)
+                    player.path = Pathfinding.instance.CalculateBFS(_startingNode, _goalNode);
+                else
+                    StartCoroutine(Pathfinding.instance.CoroutineCalculateBFS(_startingNode, _goalNode));
+            }
+
+            if(Dijkstra && !BFS)
+            {
+                if (!visualization)
+                    player.path = Pathfinding.instance.CalculateDijkstra(_startingNode, _goalNode);
+                else
+                    StartCoroutine(Pathfinding.instance.CoroutineCalculateDijkstra(_startingNode, _goalNode));
+
+            }
         }
     }
 

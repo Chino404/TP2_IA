@@ -484,6 +484,9 @@ MonoBehaviour:
   weightAlignment: 0
   weightCohesion: 0
   player: {fileID: 1430526048}
+  BFS: 0
+  Dijkstra: 1
+  visualization: 1
 --- !u!114 &1969973659
 MonoBehaviour:
   m_ObjectHideFlags: 0
