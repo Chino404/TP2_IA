@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//PLANO EN DONDE SE PUEDEN MOVER
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -56,7 +55,7 @@ public class GameManager : MonoBehaviour
     #region TP2
     [Header("PATHFINDING")]
     public LayerMask maskWall;
-    public Player player;
+    public PlayerGrid player;
     GridNode _startingNode;
     GridNode _goalNode;
 
@@ -91,6 +90,13 @@ public class GameManager : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// Si hay algo entre medio del Raycast
+    /// </summary>
+    /// <param name="start"></param>
+    /// <param name="end"></param>
+    /// <returns></returns>
     public bool InLineOfSight(Vector3 start, Vector3 end)
     {
         var dir = end - start;

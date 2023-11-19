@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerGrid : MonoBehaviour
 {
     public float speed;
     public List<GridNode> path = new List<GridNode>();

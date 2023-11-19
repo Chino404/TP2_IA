@@ -20,7 +20,10 @@ public class PatrolEnemy : IState
 
     public void OnEnter()
     {
-        
+        if(GameManager.Instance.InLineOfSight(_enemy.transform.position, _wayPoints[0].transform.position))
+        {
+            AddForce(Seek(_wayPoints[0].transform.position));
+        }
     }
 
     public void OnUpdate()
