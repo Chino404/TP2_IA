@@ -2,13 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathfindingEnemy : MonoBehaviour
+public class PathfindingEnemy : IState
 {
-    public static PathfindingEnemy instance;
+    FSM _fsm;
+    Enemy _enemy;
+    Transform _target;
 
-    private void Awake()
+    public PathfindingEnemy(FSM fsm, Transform target, Enemy enemy)
     {
-        instance = this;
+        _fsm = fsm;
+        _target = target;
+        _enemy = enemy;
+    }
+
+
+
+    public void OnEnter()
+    {
+        if (GameManager.Instance.InLineOfSight(_enemy.transform.position, _target.transform.position))
+        {
+            AddForce(Seek(_target.transform.position));
+        }
+
+    }
+
+    public void OnUpdate()
+    {
+        //CalculateAStar();
+
+    }
+
+    public void OnExit()
+    {
+        
     }
 
     #region AStar
@@ -86,5 +112,24 @@ public class PathfindingEnemy : MonoBehaviour
 
         return listNode;
     }
+
     #endregion
+
+    Vector3 Seek(Vector3 target)
+    {
+        var desired = target - _enemy.gameObject.transform.position;
+        desired.Normalize();
+        desired *= _enemy.maxVelocity;
+
+        var steering = desired - _enemy.velocity;
+        steering = Vector3.ClampMagnitude(steering, _enemy.maxForce);
+        return steering;
+    }
+
+    public void AddForce(Vector3 dir)
+    {
+        _enemy.velocity += dir;
+
+        _enemy.velocity = Vector3.ClampMagnitude(_enemy.velocity, _enemy.maxVelocity);
+    }
 }

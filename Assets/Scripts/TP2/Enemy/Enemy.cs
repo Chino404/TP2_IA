@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
 
         _fsm.CreateState("Perseguir", new ChaseEnemy(_fsm, target, this));
         _fsm.CreateState("Patrullar", new PatrolEnemy(_fsm, wayPointsPatrol, this));
+        _fsm.CreateState("Pathfinding", new PathfindingEnemy(_fsm, target ,this));
 
         _fsm.ChangeState("Patrullar");
     }
@@ -33,6 +34,7 @@ public class Enemy : MonoBehaviour
         if (InFOV(target))
         {
             print("Te veo");
+            //GameManager.Instance.eventCall += ViAlPlAYER();
 
         }
 
@@ -54,6 +56,11 @@ public class Enemy : MonoBehaviour
         }
 
         return false;
+    }
+
+    void ViAlPlAYER(Vector3 obj)
+    {
+        obj = target.transform.position;
     }
 
     #region Visualizar el rango de Vision
