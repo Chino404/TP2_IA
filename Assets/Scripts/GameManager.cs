@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,41 +54,55 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region TP2
-    [Header("TP 2")]
+    [Header("PATHFINDING")]
+    public LayerMask maskWall;
     public Player player;
-    public bool BFS, Dijkstra, visualization;
+    GridNode _startingNode;
+    GridNode _goalNode;
 
-    Node _startingNode;
-    Node _goalNode;
+    public event Action<Vector3> eventCall; //Evento para que se suscriban los enemigos y cuando uno lo ve, alerte al resto de su posicion
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && _startingNode != null && _goalNode != null)
         {
-            if(BFS && !Dijkstra)
-            {
-                if(!visualization)
-                    player.path = Pathfinding.instance.CalculateBFS(_startingNode, _goalNode);
-                else
-                    StartCoroutine(Pathfinding.instance.CoroutineCalculateBFS(_startingNode, _goalNode));
-            }
 
-            if(Dijkstra && !BFS)
-            {
-                if (!visualization)
-                    player.path = Pathfinding.instance.CalculateDijkstra(_startingNode, _goalNode);
-                else
-                    StartCoroutine(Pathfinding.instance.CoroutineCalculateDijkstra(_startingNode, _goalNode));
+            //BFS
+            //player.path = Pathfinding.instance.CalculateBFS(_startingNode, _goalNode);
+            //StartCoroutine(Pathfinding.instance.CoroutineCalculateBFS(_startingNode, _goalNode));
 
-            }
+            //Dijkstra
+            //player.path = Pathfinding.instance.CalculateDijkstra(_startingNode, _goalNode);
+            //StartCoroutine(Pathfinding.instance.CoroutineCalculateDijkstra(_startingNode, _goalNode));
+
+            //AStar
+            //player.path = Pathfinding.instance.CalculateAStar(_startingNode, _goalNode);
+            //StartCoroutine(Pathfinding.instance.CoroutineCalculateAStar(_startingNode, _goalNode));
+
+            //Theta AStar
+            //player.SetPath(Pathfinding.instance.CalculateThetaStar(_startingNode, _goalNode));
+            //StartCoroutine(Pathfinding.instance.CoroutineCalculateThetaStar(_startingNode, _goalNode));
+
         }
+    }
+
+    void ReciveCall(Vector3 pos)
+    {
+
+    }
+
+    public bool InLineOfSight(Vector3 start, Vector3 end)
+    {
+        var dir = end - start;
+
+        return !Physics.Raycast(start, dir, dir.magnitude, maskWall); //Si no hay ningun objeto de con la layer "maskWall" entonces quiere decir que estoy viendo a mi objetico (por eso lo invierto para que me de True)
     }
 
     /// <summary>
     /// Setear el nodo donde se empieza
     /// </summary>
     /// <param name="node"></param>
-    public void SetStartingNode(Node node)
+    public void SetStartingNode(GridNode node)
     {
         if (_startingNode != null) //Si ya tenia un nodo guardado
             _startingNode.GetComponent<Renderer>().material.color = Color.white; //Lo cambio a blanco
@@ -101,13 +116,18 @@ public class GameManager : MonoBehaviour
     /// Seteo el nodo de la meta
     /// </summary>
     /// <param name="node"></param>
-    public void SetGoalNode(Node node)
+    public void SetGoalNode(GridNode node)
     {
         if (_goalNode != null) //Si ya tenia un nodo guardado
             _goalNode.GetComponent<Renderer>().material.color = Color.white; //Lo cambio a blanco
 
         _goalNode = node;
         node.GetComponent<Renderer>().material.color = Color.green; //Inicio
+    }
+
+    public void ChangeColor(GridNode node, Color color)
+    {
+        node.GetComponent<Renderer>().material.color = color;
     }
 
     #endregion

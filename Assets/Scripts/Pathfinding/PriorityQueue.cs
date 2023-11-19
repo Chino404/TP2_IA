@@ -26,8 +26,8 @@ public class PriorityQueue<T>
     /// <returns></returns>
     public T Dequeue()
     {
-        T elem = default;
         float lowestValue = Mathf.Infinity;
+        T elem = default;
 
         foreach (var item in _allElements)
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed;
-    public List<Node> path = new List<Node>();
+    public List<GridNode> path = new List<GridNode>();
 
     void Update()
     {
@@ -19,5 +19,13 @@ public class Player : MonoBehaviour
             if (dir.magnitude <= 0.3f)
                 path.RemoveAt(0);
         }
+    }
+
+    public void SetPath(List<GridNode> newPath)
+    {
+        path.Clear();
+
+        foreach (var item in newPath)
+             path.Add(item);
     }
 }
