@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    public Node node;
+    public GridNode node;
     public float offset; //Variable para separar
     public int width, height; //Ancho, Alto
-    Node[/*X*/, /*Y*/] _grid;
+    GridNode[/*X*/, /*Y*/] _grid;
 
     private void Start()
     {
         //La grilla va a tener de tamaño los ya hechos
-        _grid = new Node[width, height];
+        _grid = new GridNode[width, height];
 
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 //Instancio el nodo y lo guardo en una variable temporal
-                Node node = Instantiate(this.node);
+                GridNode node = Instantiate(this.node);
                 //Le asigno su posicion en la escena y lo multiplico por su escala, asi queda uniforme. Tambien Lo multiplico por offset para que haya una separacion.
                 node.transform.position = new Vector3(x * node.transform.localScale.x , y * node.transform.localScale.y , 0) * offset;
 
@@ -41,7 +41,7 @@ public class Grid : MonoBehaviour
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public Node GetNode(int x, int y)
+    public GridNode GetNode(int x, int y)
     {
         if( x < 0 || y < 0 || x >= width || y >= height) //Por si no existe ese nodo
             return null;
