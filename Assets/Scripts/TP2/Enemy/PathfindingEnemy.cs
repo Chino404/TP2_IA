@@ -5,8 +5,8 @@ using UnityEngine;
 public class PathfindingEnemy : IState
 {
     FSM _fsm;
-    Enemy _enemy;
     Transform _target;
+    Enemy _enemy;
 
     public PathfindingEnemy(FSM fsm, Transform target, Enemy enemy)
     {
@@ -19,16 +19,19 @@ public class PathfindingEnemy : IState
 
     public void OnEnter()
     {
-        if (GameManager.Instance.InLineOfSight(_enemy.transform.position, _target.transform.position))
-        {
-            AddForce(Seek(_target.transform.position));
-        }
+        //if (GameManager.Instance.InLineOfSight(_enemy.transform.position, _target.transform.position))
+        //{
+        //    AddForce(Seek(_target.transform.position));
+        //}
+
+        ManagerNodes.Instance.GetNodeProx(_enemy.transform.position);
 
     }
 
     public void OnUpdate()
     {
-        //CalculateAStar();
+        //CalculateAStar(ManagerNodes.Instance.GetNodeProx(_enemy.transform.position), _nodePlayer);
+        _enemy._path = CalculateThetaStar(_enemy.initialNode, _enemy.goalNode);
 
     }
 

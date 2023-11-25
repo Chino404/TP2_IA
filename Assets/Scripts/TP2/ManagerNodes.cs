@@ -16,15 +16,6 @@ public class ManagerNodes : MonoBehaviour
     private void Start()
     {
 
-        //for (int i = 0; i < nodes.Length; i++)
-        //{
-
-        //    if (GameManager.Instance.InLineOfSight(nodes[i].transform.position, nodes[i + 1].transform.position))
-        //    {
-        //        nodes[i].neighbors.Add(nodes[i+1]);
-        //    }
-
-        //}
     }
 
     /// <summary>
@@ -32,7 +23,7 @@ public class ManagerNodes : MonoBehaviour
     /// </summary>
     /// <param name="pos"></param>
     /// <returns></returns>
-    public Node GetNodeProxPlayer(Vector3 pos)
+    public Node GetNodeProx(Vector3 pos)
     {
         var disProx = Mathf.Infinity;
         Node nodeMasCercano = default;
