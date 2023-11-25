@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     GridNode _goalNode;
 
     public event Action<Vector3> eventCall; //Evento para que se suscriban los enemigos y cuando uno lo ve, alerte al resto de su posicion
+    public Transform target;
 
     private void Update()
     {
@@ -85,9 +86,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ReciveCall(Vector3 pos)
+    public void ReciveCall(Vector3 pos)
     {
-
+        eventCall?.Invoke(pos);
     }
 
 

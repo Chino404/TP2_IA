@@ -6,6 +6,10 @@ public class Enemy : MonoBehaviour
 {
     FSM _fsm;
 
+    public Node initialNode;
+    public Node goalNode;
+    public List<Node> _path;
+
     [Header("Params")]
     [HideInInspector] public Vector3 velocity; //Lo hice publico para que pueda modificarlo en el PatrolEnemy
     public float maxVelocity;
@@ -20,23 +24,19 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.eventCall += LookPlayer;
+
         _fsm = new FSM();
 
         _fsm.CreateState("Perseguir", new ChaseEnemy(_fsm, target, this));
-        _fsm.CreateState("Patrullar", new PatrolEnemy(_fsm, wayPointsPatrol, this));
-        _fsm.CreateState("Pathfinding", new PathfindingEnemy(_fsm, target ,this));
+        _fsm.CreateState("Patrullar", new PatrolEnemy(_fsm, wayPointsPatrol, target, this));
+        _fsm.CreateState("Pathfinding", new PathfindingEnemy(_fsm, target, this));
 
         _fsm.ChangeState("Patrullar");
     }
 
     private void Update()
     {
-        if (InFOV(target))
-        {
-            print("Te veo");
-            //GameManager.Instance.eventCall += ViAlPlAYER();
-
-        }
 
         _fsm.Execute();
 
@@ -58,9 +58,14 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
-    void ViAlPlAYER(Vector3 obj)
+    public void LookPlayer(Vector3 obj)
     {
-        obj = target.transform.position;
+        initialNode = ManagerNodes.Instance.GetNodeProx(transform.position);
+        goalNode = ManagerNodes.Instance.GetNodeProx(obj);
+
+        //_path = PathfindingEnemy.CalculateThetaStar(_goalNode, _initialNode);
+
+        _fsm.ChangeState("Pathfinding");
     }
 
     #region Visualizar el rango de Vision

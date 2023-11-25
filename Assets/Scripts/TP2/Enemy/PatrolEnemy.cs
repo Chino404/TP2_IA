@@ -7,27 +7,38 @@ public class PatrolEnemy : IState
 {
     FSM _fsm;
     Transform[] _wayPoints;
+    Transform _target;
     Enemy _enemy;
 
     int _actualIndex;
 
-    public PatrolEnemy(FSM fsm, Transform[] wayPoints, Enemy enemy)
+    public PatrolEnemy(FSM fsm, Transform[] wayPoints, Transform target, Enemy enemy)
     {
         _fsm = fsm;
         _wayPoints = wayPoints;
+        _target = target;
         _enemy = enemy;
     }
 
     public void OnEnter()
     {
-        if(GameManager.Instance.InLineOfSight(_enemy.transform.position, _wayPoints[0].transform.position))
-        {
-            AddForce(Seek(_wayPoints[0].transform.position));
-        }
+        //if(GameManager.Instance.InLineOfSight(_enemy.transform.position, _wayPoints[0].transform.position))
+        //{
+        //    AddForce(Seek(_wayPoints[0].transform.position));
+        //}
+
+        Debug.Log("Patrullando");
     }
 
     public void OnUpdate()
     {
+        if(_enemy.InFOV(_target))
+        {
+            Debug.Log("Te veo");
+            _fsm.ChangeState("Perseguir");
+            GameManager.Instance.ReciveCall(_target.transform.position);
+        }
+
         AddForce(Seek(_wayPoints[_actualIndex].position));
 
         if (Vector3.Distance(_enemy.gameObject.transform.position, _wayPoints[_actualIndex].position) <= 0.3f)

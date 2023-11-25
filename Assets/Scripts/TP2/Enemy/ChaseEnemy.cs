@@ -17,15 +17,18 @@ public class ChaseEnemy : IState
 
     public void OnEnter()
     {
-        if (GameManager.Instance.InLineOfSight(_enemy.transform.position, _target.transform.position))
-        {
-            AddForce(Seek(_target.transform.position));
-        }
+        Debug.Log("Persiguiendo a Enemigo");
     }
 
     public void OnUpdate()
     {
-        
+        if (GameManager.Instance.InLineOfSight(_enemy.transform.position, _target.transform.position))
+        {
+            AddForce(Seek(_target.transform.position));
+            _enemy.transform.position += _enemy.velocity * Time.deltaTime;
+            _enemy.transform.forward = _enemy.velocity;
+        }
+        else _fms.ChangeState("Patrullar");
     }
 
     public void OnExit()
