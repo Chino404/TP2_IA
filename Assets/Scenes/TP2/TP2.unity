@@ -295,7 +295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3460746290371938739, guid: faa00452315a9cc4aa2affb66b9e6e80, type: 3}
       propertyPath: neighbors.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3460746290371938739, guid: faa00452315a9cc4aa2affb66b9e6e80, type: 3}
       propertyPath: neighbors.Array.data[0]
@@ -305,6 +305,10 @@ PrefabInstance:
       propertyPath: neighbors.Array.data[1]
       value: 
       objectReference: {fileID: 1649705096}
+    - target: {fileID: 3460746290371938739, guid: faa00452315a9cc4aa2affb66b9e6e80, type: 3}
+      propertyPath: neighbors.Array.data[2]
+      value: 
+      objectReference: {fileID: 918676719}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faa00452315a9cc4aa2affb66b9e6e80, type: 3}
 --- !u!4 &146446961 stripped
@@ -361,8 +365,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 390140267}
-  - component: {fileID: 390140266}
   - component: {fileID: 390140268}
+  - component: {fileID: 390140266}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1698,7 +1702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044026533}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.48, y: 1, z: -1.78}
+  m_LocalPosition: {x: -21.74, y: 1, z: -1.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1783,7 +1787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialNode: {fileID: 0}
   goalNode: {fileID: 0}
-  _path: []
+  path: []
   velocity: {x: 0, y: 0, z: 0}
   maxVelocity: 5
   maxForce: 1
@@ -2469,7 +2473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialNode: {fileID: 0}
   goalNode: {fileID: 0}
-  _path: []
+  path: []
   velocity: {x: 0, y: 0, z: 0}
   maxVelocity: 5
   maxForce: 1
@@ -2727,7 +2731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3460746290371938739, guid: faa00452315a9cc4aa2affb66b9e6e80, type: 3}
       propertyPath: neighbors.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3460746290371938739, guid: faa00452315a9cc4aa2affb66b9e6e80, type: 3}
       propertyPath: neighbors.Array.data[0]
@@ -2737,6 +2741,10 @@ PrefabInstance:
       propertyPath: neighbors.Array.data[1]
       value: 
       objectReference: {fileID: 2140819131}
+    - target: {fileID: 3460746290371938739, guid: faa00452315a9cc4aa2affb66b9e6e80, type: 3}
+      propertyPath: neighbors.Array.data[2]
+      value: 
+      objectReference: {fileID: 918676719}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faa00452315a9cc4aa2affb66b9e6e80, type: 3}
 --- !u!4 &1615940268 stripped
@@ -2966,7 +2974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialNode: {fileID: 0}
   goalNode: {fileID: 0}
-  _path: []
+  path: []
   velocity: {x: 0, y: 0, z: 0}
   maxVelocity: 5
   maxForce: 1
@@ -3367,7 +3375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 841721121508404348, guid: faa00452315a9cc4aa2affb66b9e6e80, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.52
+      value: -10.404
       objectReference: {fileID: 0}
     - target: {fileID: 841721121508404348, guid: faa00452315a9cc4aa2affb66b9e6e80, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4397,7 +4405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialNode: {fileID: 0}
   goalNode: {fileID: 0}
-  _path: []
+  path: []
   velocity: {x: 0, y: 0, z: 0}
   maxVelocity: 5
   maxForce: 1

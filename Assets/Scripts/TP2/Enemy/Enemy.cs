@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 
     public Node initialNode;
     public Node goalNode;
-    public List<Node> _path;
+    public List<Node> path;
 
     [Header("Params")]
     [HideInInspector] public Vector3 velocity; //Lo hice publico para que pueda modificarlo en el PatrolEnemy
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
 
         _fsm.CreateState("Perseguir", new ChaseEnemy(_fsm, target, this));
         _fsm.CreateState("Patrullar", new PatrolEnemy(_fsm, wayPointsPatrol, target, this));
-        _fsm.CreateState("Pathfinding", new PathfindingEnemy(_fsm, target, this));
+        _fsm.CreateState("Pathfinding", new PathfindingEnemy(_fsm, wayPointsPatrol, target, this));
 
         _fsm.ChangeState("Patrullar");
     }
@@ -64,6 +64,14 @@ public class Enemy : MonoBehaviour
         goalNode = ManagerNodes.Instance.GetNodeProx(obj);
 
         //_path = PathfindingEnemy.CalculateThetaStar(_goalNode, _initialNode);
+
+        _fsm.ChangeState("Pathfinding");
+    }
+
+    public void GoBackToPatrol()
+    {
+        initialNode = ManagerNodes.Instance.GetNodeProx(transform.position);
+        goalNode = ManagerNodes.Instance.GetNodeProx(wayPointsPatrol[0].position);
 
         _fsm.ChangeState("Pathfinding");
     }
