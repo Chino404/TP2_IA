@@ -31,6 +31,13 @@ public class PathfindingEnemy : IState
     public void OnUpdate()
     {
 
+        if (_enemy.InFOV(_target))
+        {
+            Debug.Log("Te veo");
+            GameManager.Instance.LookPlayer(_target.transform.position);
+            _fsm.ChangeState("Perseguir");
+        }
+
         if (_enemy.path.Count > 0 )
         {
 

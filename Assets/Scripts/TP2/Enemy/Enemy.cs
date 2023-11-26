@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.eventCall += LookPlayer;
+        GameManager.Instance.eventCall += ReciveCall;
 
         _fsm = new FSM();
 
@@ -58,14 +59,19 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
-    public void LookPlayer(Vector3 obj)
+    public void ReciveCall(Vector3 obj)
     {
-        initialNode = ManagerNodes.Instance.GetNodeProx(transform.position);
-        goalNode = ManagerNodes.Instance.GetNodeProx(obj);
-
-        //_path = PathfindingEnemy.CalculateThetaStar(_goalNode, _initialNode);
-
-        _fsm.ChangeState("Pathfinding");
+        if (InFOV(target))
+        {
+            Debug.Log("Yendo");
+            _fsm.ChangeState("Perseguir");
+        }
+        else
+        {
+            initialNode = ManagerNodes.Instance.GetNodeProx(transform.position);
+            goalNode = ManagerNodes.Instance.GetNodeProx(obj);
+            _fsm.ChangeState("Pathfinding");
+        }
     }
 
     public void GoBackToPatrol()

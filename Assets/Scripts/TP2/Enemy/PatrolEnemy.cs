@@ -34,7 +34,7 @@ public class PatrolEnemy : IState
         if(_enemy.InFOV(_target))
         {
             Debug.Log("Te veo");
-            GameManager.Instance.ReciveCall(_target.transform.position);
+            GameManager.Instance.LookPlayer(_target.transform.position);
             _fsm.ChangeState("Perseguir");
         }
 
