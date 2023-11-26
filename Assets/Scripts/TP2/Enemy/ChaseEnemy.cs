@@ -22,8 +22,10 @@ public class ChaseEnemy : IState
 
     public void OnUpdate()
     {
-        if (GameManager.Instance.InLineOfSight(_enemy.transform.position, _target.transform.position))
+        if (_enemy.InFOV(_target))
         {
+            //GameManager.Instance.LookPlayer(_target.transform.position);
+
             AddForce(Seek(_target.transform.position));
             _enemy.transform.position += _enemy.velocity * Time.deltaTime;
             _enemy.transform.forward = _enemy.velocity;

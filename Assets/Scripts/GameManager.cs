@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ReciveCall(Vector3 pos)
+    public void LookPlayer(Vector3 pos)
     {
         eventCall?.Invoke(pos);
     }
