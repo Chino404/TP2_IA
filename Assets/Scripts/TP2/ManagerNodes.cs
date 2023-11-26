@@ -13,10 +13,6 @@ public class ManagerNodes : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-
-    }
 
     /// <summary>
     /// El nodo mas cercano al Player
@@ -34,10 +30,12 @@ public class ManagerNodes : MonoBehaviour
             {
                 var dis = pos - nodes[i].transform.position;
 
-                if (dis.magnitude > disProx)
+                if (dis.magnitude < disProx)
                 {
+                    Debug.Log("A");
                     disProx = dis.magnitude;
                     nodeMasCercano = nodes[i];
+
                 }
             }
 

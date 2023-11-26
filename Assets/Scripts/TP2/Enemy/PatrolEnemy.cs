@@ -22,12 +22,11 @@ public class PatrolEnemy : IState
 
     public void OnEnter()
     {
-        //if(GameManager.Instance.InLineOfSight(_enemy.transform.position, _wayPoints[0].transform.position))
-        //{
-        //    AddForce(Seek(_wayPoints[0].transform.position));
-        //}
-
         Debug.Log("Patrullando");
+        _actualIndex = 0;
+
+        if (!_enemy.InFOV(_wayPoints[_actualIndex])) _enemy.GoBackToPatrol();
+   
     }
 
     public void OnUpdate()
@@ -35,9 +34,10 @@ public class PatrolEnemy : IState
         if(_enemy.InFOV(_target))
         {
             Debug.Log("Te veo");
-            _fsm.ChangeState("Perseguir");
             GameManager.Instance.ReciveCall(_target.transform.position);
+            _fsm.ChangeState("Perseguir");
         }
+
 
         AddForce(Seek(_wayPoints[_actualIndex].position));
 
@@ -48,8 +48,8 @@ public class PatrolEnemy : IState
                 _actualIndex = 0;
         }
 
-        _enemy.gameObject.transform.position += _enemy.velocity * Time.deltaTime;
-        _enemy.gameObject.transform.forward = _enemy.velocity;
+        _enemy.transform.position += _enemy.velocity * Time.deltaTime;
+        _enemy.transform.forward = _enemy.velocity;
     }
 
     public void OnExit()

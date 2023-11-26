@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PathfindingEnemy : IState
 {
     FSM _fsm;
+    Transform[] _wayPoints;
     Transform _target;
     Enemy _enemy;
 
-    public PathfindingEnemy(FSM fsm, Transform target, Enemy enemy)
+    public PathfindingEnemy(FSM fsm, Transform[] wayPoints, Transform target, Enemy enemy)
     {
         _fsm = fsm;
+        _wayPoints = wayPoints;
         _target = target;
         _enemy = enemy;
     }
@@ -19,20 +23,27 @@ public class PathfindingEnemy : IState
 
     public void OnEnter()
     {
-        //if (GameManager.Instance.InLineOfSight(_enemy.transform.position, _target.transform.position))
-        //{
-        //    AddForce(Seek(_target.transform.position));
-        //}
 
-        ManagerNodes.Instance.GetNodeProx(_enemy.transform.position);
+       _enemy.path = CalculateThetaStar(_enemy.initialNode, _enemy.goalNode);
 
     }
 
     public void OnUpdate()
     {
-        //CalculateAStar(ManagerNodes.Instance.GetNodeProx(_enemy.transform.position), _nodePlayer);
-        _enemy._path = CalculateThetaStar(_enemy.initialNode, _enemy.goalNode);
 
+        if (_enemy.path.Count > 0 )
+        {
+
+            AddForce(Seek(_enemy.path[0].transform.position));
+
+            if (Vector3.Distance(_enemy.gameObject.transform.position, _enemy.path[0].transform.position) <= 0.3f) _enemy.path.RemoveAt(0);
+
+            _enemy.transform.position += _enemy.velocity * Time.deltaTime;
+            _enemy.transform.forward = _enemy.velocity;
+
+        }
+
+        else if (_enemy.path.Count <= 0 ) _fsm.ChangeState("Patrullar");
     }
 
     public void OnExit()
